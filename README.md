@@ -1,0 +1,2 @@
+# charon
+ simple configuration language
