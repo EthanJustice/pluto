@@ -1,0 +1,13 @@
+[package]
+name = "chrn"
+description = "charon cli"
+version = "0.0.1"
+authors = ["EthanJustice <47954690+EthanJustice@users.noreply.github.com>"]
+edition = "2018"
+readme = "README.md"
+homepage = "https://github.com/EthanJustice/charon"
+repository = "https://github.com/EthanJustice/charon"
+license = "MIT"
+publish = false
+
+[dependencies]
