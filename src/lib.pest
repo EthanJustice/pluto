@@ -1,0 +1,37 @@
+// types
+number = @{ ASCII_DIGIT+ }
+
+// taken from https://pest.rs/book/examples/json.html
+string = ${ "\"" ~ inner ~ "\"" }
+
+inner = @{ char* }
+char = {
+    !("\"" | "\\") ~ ANY
+    | "\\" ~ ("\"" | "\\" | "/" | "b" | "f" | "n" | "r" | "t")
+    | "\\" ~ ("u" ~ ASCII_HEX_DIGIT{4})
+}
+
+boolean = { "true" | "false" }
+
+// any type
+any = { number | string }
+
+// structures
+field_name = { ASCII_ALPHANUMERIC{, 100} }
+
+pair = { field_name ~ " " ~ any }
+
+// indentation/nesting
+indent = { "    " }
+
+// comments
+
+inner_without_slashes = @{ char_without_slashes* }
+char_without_slashes = {
+    !("//" | "//") ~ ANY
+    | "\\" ~ ("\"" | "\\" | "/" | "b" | "f" | "n" | "r" | "t")
+    | "\\" ~ ("u" ~ ASCII_HEX_DIGIT{4})
+}
+end_of_comment = { NEWLINE | "//" | "///" }
+
+comment = { "// " ~ inner_without_slashes }
