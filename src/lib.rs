@@ -37,17 +37,28 @@ mod tests {
     }
 
     #[test]
+    fn valid_booleans() {
+        let t = CharonParser::parse(Rule::boolean, "true");
+        let f = CharonParser::parse(Rule::boolean, "false");
+        assert!(t.is_ok());
+        assert!(f.is_ok());
+
+        let nt = CharonParser::parse(Rule::boolean, "truee");
+        assert!(nt.is_ok());
+    }
+
+    #[test]
     fn test_examples() {
         use std::fs::{read_dir, read_to_string};
         use std::path::Path;
         read_dir("./examples").unwrap().for_each(|f| {
             let path = f.unwrap().path();
             let file = read_to_string(path).unwrap();
-            file.split("\n").for_each(|line| {
+            file.split("\r\n").for_each(|line| {
                 // skips blank lines
                 if line.len() > 2 {
                     let rule = CharonParser::parse(Rule::pair, line);
-                    //                println!("{:#?}", rule);
+                    println!("{:#?}", rule);
                     assert!(rule.is_ok());
                 }
             })

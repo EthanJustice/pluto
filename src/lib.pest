@@ -1,5 +1,7 @@
 // types
-number = @{ ASCII_DIGIT+ }
+
+decimal_fraction = { "." ~ ASCII_DIGIT+ }
+number = @{ ASCII_DIGIT+ ~ decimal_fraction? }
 
 // taken from https://pest.rs/book/examples/json.html
 string = ${ "\"" ~ inner ~ "\"" }
@@ -11,24 +13,24 @@ char = {
     | "\\" ~ ("u" ~ ASCII_HEX_DIGIT{4})
 }
 
-boolean = { "true" | "false" }
+boolean = { "true"{1} | "false"{1} }
 
 array = { (non_array ~ ", ")+ }
 
 // any type
-any = { number | string | array }
-non_array = { number | string }
+any = { non_array | array }
+non_array = { boolean | number | string }
 
 // structures
-field_name = { ASCII_ALPHANUMERIC{, 100} }
+valid_field_name = { ASCII_ALPHA+ ~ ("_" ~ ASCII_ALPHA+)* }
+field_name = { valid_field_name{, 100} }
 
 pair = { indent* ~ field_name ~ " " ~ any }
 
 // indentation/nesting
-indent = { " "{1, 4} | "\t"{1, 4} }
+indent = { " "{2, 4} | "\t"{1} }
 
 // comments
-
 inner_without_slashes = @{ char_without_slashes* }
 char_without_slashes = {
     !("//" | "//") ~ ANY
