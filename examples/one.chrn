@@ -1,3 +1,8 @@
-// this is a comment
+name "Generic name"
+    age 12
 
-name 22
+name "Another generic name"
+    age 22
+
+list "Test", "Test", "Another Test"
+    len 3
