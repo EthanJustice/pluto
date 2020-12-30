@@ -13,16 +13,19 @@ char = {
 
 boolean = { "true" | "false" }
 
+array = { (non_array ~ ", ")+ }
+
 // any type
-any = { number | string }
+any = { number | string | array }
+non_array = { number | string }
 
 // structures
 field_name = { ASCII_ALPHANUMERIC{, 100} }
 
-pair = { field_name ~ " " ~ any }
+pair = { indent* ~ field_name ~ " " ~ any }
 
 // indentation/nesting
-indent = { "    " }
+indent = { " "{1, 4} | "\t"{1, 4} }
 
 // comments
 
