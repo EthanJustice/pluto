@@ -1,11 +1,13 @@
 name "Generic name"
-	age 12.5
+age 12.5
 
 name "Another generic name"
-	age 22.0
+age 22.0
 
 list "Test", "Test", "Another Test"
-	len 3
+len 3
+
+// this is a comment
 
 is_alive false
-	is_dead true
+is_dead true

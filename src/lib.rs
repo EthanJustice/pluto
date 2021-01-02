@@ -57,9 +57,13 @@ mod tests {
             file.split("\r\n").for_each(|line| {
                 // skips blank lines
                 if line.len() > 2 {
-                    let rule = ProtoParser::parse(Rule::pair, line);
-                    //                    println!("{:#?}", rule);
-                    assert!(rule.is_ok());
+                    if line.starts_with("/") {
+                        let rule = ProtoParser::parse(Rule::comment, line);
+                        assert!(rule.is_ok());
+                    } else {
+                        let rule = ProtoParser::parse(Rule::pair, line);
+                        assert!(rule.is_ok());
+                    }
                 }
             })
         })

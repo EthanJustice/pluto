@@ -1,5 +1,4 @@
 // types
-
 decimal_fraction = { "." ~ ASCII_DIGIT+ }
 number = @{ ASCII_DIGIT+ ~ decimal_fraction? }
 
@@ -18,25 +17,16 @@ boolean = { "true"{1} | "false"{1} }
 array = { (non_array ~ ", ")+ }
 
 // any type
-any = { non_array | array }
+generic = { non_array | array }
 non_array = { boolean | number | string }
 
 // structures
-valid_field_name = { ASCII_ALPHA+ ~ ("_" ~ ASCII_ALPHA+)* }
-field_name = { valid_field_name{, 100} }
+valid_key_name = @{ !("/" | "\\" | comment)+ ~ ASCII_ALPHA+ ~ !("/" | "\\" | comment)+ ~ ("_" ~ ASCII_ALPHA+)* }
+key_name = @{ valid_key_name{1, 100} }
 
-pair = { indent* ~ field_name ~ " " ~ any }
+field = { key_name{, 100} ~ NEWLINE }
 
-// indentation/nesting
-indent = { " "{2, 4} | "\t"{1} }
+pair = { key_name ~ " " ~ generic }
 
-// comments
-inner_without_slashes = @{ char_without_slashes* }
-char_without_slashes = {
-    !("//" | "//") ~ ANY
-    | "\\" ~ ("\"" | "\\" | "/" | "b" | "f" | "n" | "r" | "t")
-    | "\\" ~ ("u" ~ ASCII_HEX_DIGIT{4})
-}
-end_of_comment = { NEWLINE | "//" | "///" }
-
-comment = { "// " ~ inner_without_slashes }
+// comments, ignored by pest
+comment = _{ "// " ~ (!"\n" ~ ANY)* }

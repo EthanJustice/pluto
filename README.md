@@ -11,6 +11,15 @@ types:
 + boolean
 + array
 
-nested values created using indentation
-
 comments: `//`
+
+Structure created using a name on a new line. Structures end after a new line (see below)
+
+```proto
+person_1
+name "Name"
+age 12
+
+// This begins an unrelated section of uncategorised items
+year = 2021
+```
