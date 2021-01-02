@@ -9,7 +9,7 @@ use pest_derive::*;
 
 #[derive(Parser)]
 #[grammar = "lib.pest"]
-pub struct CharonParser;
+pub struct ProtoParser;
 
 #[cfg(test)]
 mod tests {
@@ -19,31 +19,31 @@ mod tests {
     // todo: fuzzing
     #[test]
     fn valid_pairs() {
-        let pair = CharonParser::parse(Rule::pair, "example 22");
+        let pair = ProtoParser::parse(Rule::pair, "example 22");
         assert!(pair.is_ok());
     }
 
     #[test]
     fn valid_number() {
-        let num = CharonParser::parse(Rule::number, "2000000");
+        let num = ProtoParser::parse(Rule::number, "2000000");
         assert!(num.is_ok());
     }
 
     #[test]
     fn valid_string() {
         let raw = String::from("\"This is a string\"");
-        let string = CharonParser::parse(Rule::string, raw.as_str());
+        let string = ProtoParser::parse(Rule::string, raw.as_str());
         assert!(string.is_ok());
     }
 
     #[test]
     fn valid_booleans() {
-        let t = CharonParser::parse(Rule::boolean, "true");
-        let f = CharonParser::parse(Rule::boolean, "false");
+        let t = ProtoParser::parse(Rule::boolean, "true");
+        let f = ProtoParser::parse(Rule::boolean, "false");
         assert!(t.is_ok());
         assert!(f.is_ok());
 
-        let nt = CharonParser::parse(Rule::boolean, "truee");
+        let nt = ProtoParser::parse(Rule::boolean, "truee");
         assert!(nt.is_ok());
     }
 
@@ -57,8 +57,8 @@ mod tests {
             file.split("\r\n").for_each(|line| {
                 // skips blank lines
                 if line.len() > 2 {
-                    let rule = CharonParser::parse(Rule::pair, line);
-                    println!("{:#?}", rule);
+                    let rule = ProtoParser::parse(Rule::pair, line);
+                    //                    println!("{:#?}", rule);
                     assert!(rule.is_ok());
                 }
             })
