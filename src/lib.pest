@@ -24,7 +24,7 @@ non_array = { boolean | number | string }
 valid_key_name = @{ !("/" | "\\" | comment)+ ~ ASCII_ALPHA+ ~ !("/" | "\\" | comment)+ ~ ("_" ~ ASCII_ALPHA+)* }
 key_name = @{ valid_key_name{1, 100} }
 
-group = { key_name{, 100} ~ NEWLINE }
+group = { key_name ~ NEWLINE }
 
 pair = { key_name ~ " " ~ generic }
 

@@ -1,21 +1,12 @@
-# proto
+# pluto
 
 simple configuration language
 
-`name value`
+See the [spec](./SPEC.md) for more.
 
-types:
+## Libraries
 
-+ string
-+ number
-+ boolean
-+ array
-
-comments: `//`
-
-Structure created using a name on a new line. Structures end after a new line (see below)
-
-```proto
+```pluto
 person_one
 name "Name"
 age 12
