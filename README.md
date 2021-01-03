@@ -16,7 +16,7 @@ comments: `//`
 Structure created using a name on a new line. Structures end after a new line (see below)
 
 ```proto
-person_1
+person_one
 name "Name"
 age 12
 

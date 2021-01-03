@@ -9,5 +9,6 @@ len 3
 
 // this is a comment
 
+status
 is_alive false
 is_dead true

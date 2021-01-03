@@ -60,6 +60,9 @@ mod tests {
                     if line.starts_with("/") {
                         let rule = ProtoParser::parse(Rule::comment, line);
                         assert!(rule.is_ok());
+                    } else if line.contains(" ") == false {
+                        let rule = ProtoParser::parse(Rule::group, line);
+                        assert!(rule.is_ok());
                     } else {
                         let rule = ProtoParser::parse(Rule::pair, line);
                         assert!(rule.is_ok());
