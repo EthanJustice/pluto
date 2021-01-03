@@ -1,0 +1,13 @@
+[package]
+name = "serde_pluto"
+description = "(de)serialisation for the pluto configuration language"
+version = "0.0.0"
+authors = ["EthanJustice <47954690+EthanJustice@users.noreply.github.com>"]
+edition = "2018"
+readme = "README.md"
+homepage = "https://github.com/EthanJustice/pluto"
+repository = "https://github.com/EthanJustice/pluto"
+license = "MIT"
+publish = false
+
+[dependencies]
