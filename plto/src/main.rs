@@ -1,8 +1,9 @@
 // std
+use std::fs::read_to_string;
 
 // crates
 use clap::{App, Arg, SubCommand};
-use pluto::PlutoParser;
+use pluto::{validate, PlutoParser, Rule};
 
 // local
 
@@ -17,4 +18,17 @@ fn main() {
                 .arg(Arg::with_name("INPUT").help("The file to validate")),
         )
         .get_matches();
+
+    if let Some(v) = app.subcommand_matches("validate") {
+        let file = v.value_of("INPUT").unwrap();
+        let text = read_to_string(file).unwrap();
+        match validate(&text) {
+            Ok(()) => println!("{} is valid!", file),
+            Err(errors) => {
+                for i in errors.iter() {
+                    println!("{}", i);
+                }
+            }
+        };
+    }
 }
